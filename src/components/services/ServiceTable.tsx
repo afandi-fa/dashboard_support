@@ -1,4 +1,3 @@
-import React from 'react'
 import { MoreVertical, Eye, RefreshCw, Play, Pause } from 'lucide-react'
 import { Service } from '@/lib/services'
 import { Badge } from '@/components/ui/badge'

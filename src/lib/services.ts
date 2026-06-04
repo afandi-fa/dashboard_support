@@ -133,7 +133,7 @@ export async function fetchServiceLogs(): Promise<ServiceLog[]> {
   return LOGS
 }
 
-export async function restartService(id: string) {
+export async function restartService(_id: string) {
   await new Promise((r) => setTimeout(r, 250))
   return { ok: true }
 }

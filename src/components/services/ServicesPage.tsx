@@ -53,8 +53,8 @@ export default function ServicesPage() {
     if (page > totalPages) setPage(1)
   }, [page, totalPages])
 
-  async function handleRestart() {
-    await restartService()
+  async function handleRestart(id: string) {
+    await restartService(id)
     fetchServices().then(setServices)
   }
   function handleReset() {
@@ -201,7 +201,7 @@ export default function ServicesPage() {
                           <Button
                             size='sm'
                             variant='outline'
-                            onClick={() => handleRestart()}
+                            onClick={() => handleRestart(service.id)}
                           >
                             Restart
                           </Button>
