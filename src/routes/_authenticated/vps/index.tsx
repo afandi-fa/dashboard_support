@@ -395,9 +395,7 @@ export function Overview() {
       {/* ===== Main ===== */}
       <Main>
         <div className='mb-2 flex items-center justify-between space-y-2'>
-          <h1 className='text-2xl font-bold tracking-tight'>
-            VPS Management test
-          </h1>
+          <h1 className='text-2xl font-bold tracking-tight'>VPS Management </h1>
         </div>
 
         <div className='space-y-4'>
