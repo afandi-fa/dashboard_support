@@ -4,6 +4,7 @@ import {
   GalleryVerticalEnd,
   LayoutDashboard,
   Server,
+  Layers,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -43,6 +44,11 @@ export const sidebarData: SidebarData = {
           title: 'VPS',
           url: '/vps',
           icon: Server,
+        },
+        {
+          title: 'Services',
+          url: '/services',
+          icon: Layers,
         },
       ],
     },
