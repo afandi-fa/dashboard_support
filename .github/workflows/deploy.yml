@@ -17,18 +17,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
-      - name: Enable Corepack (pnpm)
+      - name: Enable Corepack
         run: corepack enable
 
-      - name: Activate pnpm version
+      - name: Prepare pnpm
         run: corepack prepare pnpm@9.15.0 --activate
+
+      - name: Verify pnpm
+        run: pnpm -v
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --force
 
-      - name: Build Application
+      - name: Build
         run: pnpm build
 
       - name: Setup SSH
@@ -38,7 +40,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -p ${{ secrets.PORT }} ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to VPS
+      - name: Deploy
         run: |
           rsync -avz --delete \
             -e "ssh -p ${{ secrets.PORT }}" \
