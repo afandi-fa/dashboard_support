@@ -39,14 +39,15 @@ export default function ServiceLogs() {
   return (
     <Card>
       <CardHeader>
-        <div className='flex w-full items-center justify-between'>
+        <div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'>
           <CardTitle>Service Logs</CardTitle>
-          <div className='flex items-center gap-2'>
+
+          <div className='flex flex-col gap-3 sm:flex-row lg:items-center'>
             <Select
               value={sourceFilter}
               onValueChange={(v) => setSourceFilter(v)}
             >
-              <SelectTrigger size='sm'>
+              <SelectTrigger size='sm' className='w-full sm:w-[180px]'>
                 <SelectValue>
                   {sourceFilter === 'All' ? 'Semua Sumber' : sourceFilter}
                 </SelectValue>
@@ -62,7 +63,7 @@ export default function ServiceLogs() {
             </Select>
 
             <Select value={timeRange} onValueChange={(v) => setTimeRange(v)}>
-              <SelectTrigger size='sm'>
+              <SelectTrigger size='sm' className='w-full sm:w-[180px]'>
                 <SelectValue>
                   {timeRange === '1h'
                     ? '1 Jam'
@@ -80,6 +81,7 @@ export default function ServiceLogs() {
 
             <Button
               variant='ghost'
+              className='w-full sm:w-auto'
               onClick={() => fetchServiceLogs().then(setLogs)}
             >
               Refresh
