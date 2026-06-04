@@ -17,18 +17,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
 
-      - name: Enable Corepack
+      - name: Enable Corepack (pnpm)
         run: corepack enable
+
+      - name: Activate pnpm version
+        run: corepack prepare pnpm@9.15.0 --activate
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --force
 
-      - name: Install Dependencies
-        run: npm ci
-
       - name: Build Application
-        run: npm run build
+        run: pnpm build
 
       - name: Setup SSH
         run: |
