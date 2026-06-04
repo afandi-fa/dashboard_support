@@ -1,4 +1,3 @@
-import React from 'react'
 import { Service } from '@/lib/services'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 

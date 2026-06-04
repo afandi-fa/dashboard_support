@@ -22,7 +22,7 @@ export function Dashboard() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <Header>
+      <Header fixed>
         <TopNav links={topNav} className='me-auto' />
         <Search />
         <ThemeSwitch />

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Service } from '@/lib/services'
 
 export default function ServiceCategories({

@@ -385,7 +385,7 @@ export function Overview() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <Header>
+      <Header fixed>
         <Search />
         <ThemeSwitch />
         <ConfigDrawer />
@@ -464,17 +464,18 @@ export function Overview() {
           </div>
 
           <Card>
-            <CardHeader className='flex flex-col gap-3 md:flex-row md:items-center md:justify-between'>
-              <div className='flex w-full items-center gap-3'>
+            <CardHeader>
+              <div className='flex w-full flex-col gap-3 lg:flex-row lg:items-center'>
                 <Input
                   placeholder='Cari berdasarkan nama atau IP...'
-                  className='me-auto'
+                  className='w-full lg:flex-1'
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value)
                     setPage(1)
                   }}
                 />
+
                 <Select
                   value={statusFilter}
                   onValueChange={(v) => {
@@ -482,7 +483,7 @@ export function Overview() {
                     setPage(1)
                   }}
                 >
-                  <SelectTrigger size='sm'>
+                  <SelectTrigger size='sm' className='w-full lg:w-[180px]'>
                     <SelectValue>
                       {statusFilter === 'all' ? 'Semua Status' : statusFilter}
                     </SelectValue>
@@ -495,6 +496,7 @@ export function Overview() {
                     <SelectItem value='rebooting'>Rebooting</SelectItem>
                   </SelectContent>
                 </Select>
+
                 <Select
                   value={expireFilter}
                   onValueChange={(v) => {
@@ -502,7 +504,7 @@ export function Overview() {
                     setPage(1)
                   }}
                 >
-                  <SelectTrigger size='sm'>
+                  <SelectTrigger size='sm' className='w-full lg:w-[180px]'>
                     <SelectValue>
                       {expireFilter === 'all'
                         ? 'Semua Expire Date'
@@ -516,8 +518,9 @@ export function Overview() {
                     <SelectItem value='expired'>Expired</SelectItem>
                   </SelectContent>
                 </Select>
+
                 <button
-                  className='btn ms-auto rounded-md border px-3 py-2 text-sm'
+                  className='w-full rounded-md border px-3 py-2 text-sm lg:w-auto'
                   onClick={() => {
                     setQuery('')
                     setStatusFilter('all')

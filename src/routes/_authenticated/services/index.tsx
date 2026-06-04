@@ -10,7 +10,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 export function ServicesOverview() {
   return (
     <>
-      <Header>
+      <Header fixed>
         <Search />
         <ThemeSwitch />
         <ConfigDrawer />

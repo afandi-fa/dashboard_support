@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { fetchServices, restartService, Service } from '@/lib/services'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
   Select,
   SelectContent,
@@ -9,8 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import ServiceCategories from './ServiceCategories'
-import ServiceControls from './ServiceControls'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 import ServiceLogs from './ServiceLogs'
 import ServiceSummaryCards from './ServiceSummaryCards'
 import ServiceTable from './ServiceTable'
@@ -78,127 +77,186 @@ export default function ServicesPage() {
 
         <div className='flex flex-col gap-6 md:flex-row'>
           <div className='flex-1'>
-            {/* Mobile: categories select */}
-            <div className='mb-3 md:hidden'>
-              <Select
-                value={categoryFilter}
-                onValueChange={(v) => {
-                  setCategoryFilter(v)
-                  setPage(1)
-                }}
-              >
-                <SelectTrigger size='sm'>
-                  <SelectValue>
-                    {categoryFilter === 'All'
-                      ? 'Semua Kategori'
-                      : categoryFilter}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='All'>Semua Kategori</SelectItem>
-                  {categories.map((c) => (
-                    <SelectItem key={c} value={c}>
-                      {c}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className='mb-4'>
-              <ServiceControls
-                query={query}
-                onQuery={(q) => {
-                  setQuery(q)
-                  setPage(1)
-                }}
-                status={statusFilter}
-                onStatus={(s) => {
-                  setStatusFilter(s)
-                  setPage(1)
-                }}
-                category={categoryFilter}
-                onCategory={(c) => {
-                  setCategoryFilter(c)
-                  setPage(1)
-                }}
-                categories={categories}
-                onReset={handleReset}
-              />
-            </div>
+            <Card>
+              <CardHeader>
+                <div className='flex w-full flex-col gap-3 xl:flex-row xl:items-center'>
+                  <Input
+                    placeholder='Search services...'
+                    className='w-full xl:flex-1'
+                    value={query}
+                    onChange={(e) => {
+                      setQuery(e.target.value)
+                      setPage(1)
+                    }}
+                  />
 
-            {/* Mobile: card list */}
-            <div className='space-y-4 md:hidden'>
-              {pageItems.map((it) => (
-                <Card
-                  key={it.id}
-                  className='cursor-pointer border transition hover:shadow-sm'
-                >
-                  <CardContent className='space-y-3'>
-                    <div className='flex items-start justify-between gap-4'>
-                      <div className='min-w-0'>
-                        <p className='text-sm font-semibold text-primary'>
-                          {it.name}
-                        </p>
-                        <p className='text-xs text-muted-foreground'>
-                          {it.category}
-                        </p>
-                        <p className='mt-2 text-sm'>{it.expireDate}</p>
-                      </div>
-                      <Badge
-                        variant={
-                          it.status === 'running'
-                            ? 'default'
-                            : it.status === 'stopped'
-                              ? 'outline'
-                              : ('secondary' as any)
-                        }
-                      >
-                        {it.status}
-                      </Badge>
+                  <Select
+                    value={statusFilter}
+                    onValueChange={(v) => {
+                      setStatusFilter(v)
+                      setPage(1)
+                    }}
+                  >
+                    <SelectTrigger size='sm' className='w-full xl:w-[180px]'>
+                      <SelectValue>
+                        {statusFilter === 'all' ? 'Semua Status' : statusFilter}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value='all'>Semua Status</SelectItem>
+                      <SelectItem value='running'>Running</SelectItem>
+                      <SelectItem value='warning'>Warning</SelectItem>
+                      <SelectItem value='stopped'>Stopped</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select
+                    value={categoryFilter}
+                    onValueChange={(v) => {
+                      setCategoryFilter(v)
+                      setPage(1)
+                    }}
+                  >
+                    <SelectTrigger size='sm' className='w-full xl:w-[200px]'>
+                      <SelectValue>
+                        {categoryFilter === 'All'
+                          ? 'Semua Kategori'
+                          : categoryFilter}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value='All'>Semua Kategori</SelectItem>
+                      {categories.map((c) => (
+                        <SelectItem key={c} value={c}>
+                          {c}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Button
+                    variant='outline'
+                    className='w-full xl:w-auto'
+                    onClick={handleReset}
+                  >
+                    Reset Filter
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {/* Desktop Table */}
+                <div className='hidden md:block'>
+                  <div className='overflow-x-auto rounded-md border border-border'>
+                    <div className='min-w-[700px]'>
+                      <ServiceTable
+                        services={pageItems}
+                        onRestart={handleRestart}
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                </div>
 
-            <ServiceTable services={pageItems} onRestart={handleRestart} />
+                {/* Mobile Cards */}
+                <div className='space-y-4 md:hidden'>
+                  {pageItems.map((service) => (
+                    <Card
+                      key={service.id}
+                      className='cursor-pointer border transition hover:shadow-sm'
+                    >
+                      <CardContent className='space-y-4 pt-4'>
+                        <div className='flex items-start justify-between gap-4'>
+                          <div className='min-w-0'>
+                            <p className='text-sm font-semibold text-primary'>
+                              {service.name}
+                            </p>
 
-            <div className='mt-4 flex items-center justify-end gap-2'>
-              <nav className='inline-flex items-center gap-1'>
-                <button
-                  className='rounded-md border px-3 py-1'
-                  disabled={page <= 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                >
-                  ‹
-                </button>
-                {Array.from({ length: totalPages })
-                  .slice(0, 5)
-                  .map((_, i) => {
-                    const p = i + 1
-                    return (
-                      <button
-                        key={p}
-                        className={`rounded-md border px-3 py-1 ${p === page ? 'bg-primary text-white' : ''}`}
-                        onClick={() => setPage(p)}
-                      >
-                        {p}
-                      </button>
-                    )
-                  })}
-                <button
-                  className='rounded-md border px-3 py-1'
-                  disabled={page >= totalPages}
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                >
-                  ›
-                </button>
-              </nav>
-            </div>
+                            <p className='text-xs text-muted-foreground'>
+                              {service.category}
+                            </p>
+                          </div>
 
-            <div className='mt-6'>
-              <ServiceLogs />
-            </div>
+                          <span
+                            className={`rounded-full px-2 py-1 text-xs font-medium ${
+                              service.status === 'running'
+                                ? 'bg-green-100 text-green-700'
+                                : service.status === 'warning'
+                                  ? 'bg-yellow-100 text-yellow-700'
+                                  : 'bg-red-100 text-red-700'
+                            }`}
+                          >
+                            {service.status}
+                          </span>
+                        </div>
+
+                        <div className='grid gap-2 text-sm'>
+                          <div className='flex justify-between'>
+                            <span className='text-muted-foreground'>
+                              Category
+                            </span>
+                            <span>{service.category}</span>
+                          </div>
+                        </div>
+
+                        <div className='flex gap-2'>
+                          <Button
+                            size='sm'
+                            variant='outline'
+                            onClick={() => handleRestart(service.id)}
+                          >
+                            Restart
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                <div className='mt-4 flex items-center justify-end gap-2'>
+                  <nav className='inline-flex items-center gap-1'>
+                    <button
+                      className='rounded-md border px-3 py-1'
+                      disabled={page <= 1}
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    >
+                      ‹
+                    </button>
+
+                    {Array.from({ length: totalPages })
+                      .slice(0, 5)
+                      .map((_, i) => {
+                        const p = i + 1
+
+                        return (
+                          <button
+                            key={p}
+                            className={`rounded-md border px-3 py-1 ${
+                              p === page ? 'bg-primary text-white' : ''
+                            }`}
+                            onClick={() => setPage(p)}
+                          >
+                            {p}
+                          </button>
+                        )
+                      })}
+
+                    <button
+                      className='rounded-md border px-3 py-1'
+                      disabled={page >= totalPages}
+                      onClick={() =>
+                        setPage((p) => Math.min(totalPages, p + 1))
+                      }
+                    >
+                      ›
+                    </button>
+                  </nav>
+                </div>
+
+                <div className='mt-6'>
+                  <ServiceLogs />
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
