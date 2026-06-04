@@ -13,9 +13,6 @@ export default function ServiceControls({
   onQuery,
   status,
   onStatus,
-  //   category,
-  onCategory,
-  //   categories,
   onReset,
 }: {
   query: string

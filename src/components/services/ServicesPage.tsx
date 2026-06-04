@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { fetchServices, restartService, Service } from '@/lib/services'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
@@ -53,8 +53,8 @@ export default function ServicesPage() {
     if (page > totalPages) setPage(1)
   }, [page, totalPages])
 
-  async function handleRestart(id: string) {
-    await restartService(id)
+  async function handleRestart() {
+    await restartService()
     fetchServices().then(setServices)
   }
   function handleReset() {
@@ -201,7 +201,7 @@ export default function ServicesPage() {
                           <Button
                             size='sm'
                             variant='outline'
-                            onClick={() => handleRestart(service.id)}
+                            onClick={() => handleRestart()}
                           >
                             Restart
                           </Button>
