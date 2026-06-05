@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   MoreVertical,
   ExternalLink,
-  Filter,
   RotateCcw,
   ChevronLeft,
   ChevronRight,

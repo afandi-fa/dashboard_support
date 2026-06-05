@@ -1,5 +1,5 @@
 import { Clock, ChevronRight } from 'lucide-react'
-import { Database, getDatabaseTypeIcon } from '@/lib/databases'
+import { Database } from '@/lib/databases'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 function getDaysUntilExpire(expireDate: string): number {
