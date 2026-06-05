@@ -144,15 +144,13 @@ export default function ServicesPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                {/* Desktop Table */}
-                <div className='hidden md:block'>
-                  <div className='overflow-x-auto rounded-md border border-border'>
-                    <div className='min-w-[700px]'>
-                      <ServiceTable
-                        services={pageItems}
-                        onRestart={handleRestart}
-                      />
-                    </div>
+                {/* Desktop/Tablet Table */}
+                <div className='overflow-x-auto rounded-md border border-border'>
+                  <div className='min-w-[700px]'>
+                    <ServiceTable
+                      services={pageItems}
+                      onRestart={handleRestart}
+                    />
                   </div>
                 </div>
 
@@ -194,6 +192,20 @@ export default function ServicesPage() {
                               Category
                             </span>
                             <span>{service.category}</span>
+                          </div>
+                          <div className='flex justify-between'>
+                            <span className='text-muted-foreground'>
+                              Expire Date
+                            </span>
+                            <span>{service.expireDate || '-'}</span>
+                          </div>
+                          <div className='flex justify-between'>
+                            <span className='text-muted-foreground'>
+                              Uptime
+                            </span>
+                            <span>
+                              {service.uptime ? `${service.uptime}%` : '-'}
+                            </span>
                           </div>
                         </div>
 

@@ -1,6 +1,7 @@
 import {
   AudioWaveform,
   Command,
+  Database,
   GalleryVerticalEnd,
   LayoutDashboard,
   Server,
@@ -49,6 +50,11 @@ export const sidebarData: SidebarData = {
           title: 'Services',
           url: '/services',
           icon: Layers,
+        },
+        {
+          title: 'Databases',
+          url: '/databases',
+          icon: Database,
         },
       ],
     },

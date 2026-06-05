@@ -10,6 +10,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 export default function ServiceLogs() {
   const [logs, setLogs] = useState<any[]>([])
@@ -90,39 +98,45 @@ export default function ServiceLogs() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className='space-y-2'>
-          <table className='w-full text-sm'>
-            <thead className='text-left text-xs text-muted-foreground'>
-              <tr>
-                <th>Waktu</th>
-                <th>Level</th>
-                <th>Sumber</th>
-                <th>Pesan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {displayed.map((l: any) => (
-                <tr key={l.id} className='border-t'>
-                  <td className='py-2'>{l.time}</td>
-                  <td className='py-2'>
-                    <Badge
-                      variant={
-                        l.level === 'ERROR'
-                          ? 'destructive'
-                          : l.level === 'WARN'
-                            ? 'secondary'
-                            : ('default' as any)
-                      }
-                    >
-                      {l.level}
-                    </Badge>
-                  </td>
-                  <td className='py-2'>{l.source || '-'}</td>
-                  <td className='py-2'>{l.message}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className='overflow-x-auto rounded-md border border-border'>
+          <div className='min-w-[600px]'>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Waktu</TableHead>
+                  <TableHead>Level</TableHead>
+                  <TableHead>Sumber</TableHead>
+                  <TableHead>Pesan</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {displayed.map((l: any) => (
+                  <TableRow key={l.id}>
+                    <TableCell className='whitespace-nowrap'>
+                      {l.time}
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          l.level === 'ERROR'
+                            ? 'destructive'
+                            : l.level === 'WARN'
+                              ? 'secondary'
+                              : ('default' as any)
+                        }
+                      >
+                        {l.level}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{l.source || '-'}</TableCell>
+                    <TableCell className='max-w-[300px] truncate'>
+                      {l.message}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </CardContent>
     </Card>
