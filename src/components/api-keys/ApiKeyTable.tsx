@@ -38,7 +38,6 @@ function getStatusBadge(status: ApiKey['status']) {
 
 function UsageBar({
   usage,
-  limit,
   percent,
 }: {
   usage: number
