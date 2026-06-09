@@ -1,8 +1,6 @@
 import {
   AudioWaveform,
-  Command,
   Database,
-  GalleryVerticalEnd,
   Globe,
   KeyRound,
   LayoutDashboard,
@@ -18,16 +16,6 @@ export const sidebarData: SidebarData = {
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
-    {
-      name: 'Shadcn Admin',
-      logo: Command,
-      plan: 'Vite + ShadcnUI',
-    },
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
     {
       name: 'Acme Corp.',
       logo: AudioWaveform,

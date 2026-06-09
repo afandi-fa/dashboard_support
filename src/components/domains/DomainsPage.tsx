@@ -231,9 +231,6 @@ export default function DomainsPage() {
           <h1 className='text-2xl font-bold tracking-tight'>
             Domain Management
           </h1>
-          <p className='text-sm text-muted-foreground'>
-            Kelola dan monitor semua domain dalam sistem.
-          </p>
         </div>
       </div>
 

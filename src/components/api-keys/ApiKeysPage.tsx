@@ -182,9 +182,6 @@ export default function ApiKeysPage() {
           <h1 className='text-2xl font-bold tracking-tight'>
             API Key Management
           </h1>
-          <p className='text-sm text-muted-foreground'>
-            Kelola dan monitor semua API key untuk layanan AI Model.
-          </p>
         </div>
       </div>
 

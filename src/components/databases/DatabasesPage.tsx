@@ -215,9 +215,6 @@ export default function DatabasesPage() {
           <h1 className='text-2xl font-bold tracking-tight'>
             Database Management
           </h1>
-          <p className='text-sm text-muted-foreground'>
-            Kelola dan monitor seluruh database dalam sistem.
-          </p>
         </div>
       </div>
 
